@@ -11,6 +11,10 @@ class MyApp extends StatelessWidget {
       title: 'Flutter bottomNavigationBar',
       theme: ThemeData.light(),//主题
       home: BottomNavigationWidget(),
+//      routes: <String, WidgetBuilder>{
+//        '/bookShelf': (BuildContext context) => BookShelf(),
+//        '/bookCity': (BuildContext context) => BookCity(),
+//      },
     );
   }
 }

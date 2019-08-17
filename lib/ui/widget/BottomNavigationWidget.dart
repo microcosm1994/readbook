@@ -58,6 +58,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
         currentIndex: _currentIndex,
         onTap: (int index) {
           setState(() {
+//            Navigator.pushNamed(context, '/detail');
             _currentIndex = index;
           });
         },
