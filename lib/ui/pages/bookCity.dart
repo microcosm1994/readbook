@@ -1,33 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
+import '../../data/bookMall/bookMall.dart';
+import '../widget/swiper.dart';
 
 class BookCity extends StatelessWidget {
   @override
-  void initState() {
-    print(111);
-  }
+  void initState() {}
 
   @override
   Widget build(BuildContext context) {
-    getHttp();
+    var data = BookMall().getType();
+    print(data);
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-            child: Text('书城')),
+        title: Row(
+          children: <Widget>[
+            const Icon(Icons.search),
+            const Expanded(
+              child: Text('请输入搜索内容'),
+            ),
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {},
+              color: Colors.black,
+            ),
+          ],
+        ),
       ),
       body: Center(
-        child: Text('书城'),
+        child: SwiperPage(),
       ),
     );
   }
 
-  // 请求书籍分类
-  void getHttp() async {
-    try {
-      Response response = await Dio().get("http://api.zhuishushenqi.com/cats/lv2/statistics");
-      print(response);
-    } catch (e) {
-      print(e);
-    }
-  }
+  void initSwiper() {}
 }
