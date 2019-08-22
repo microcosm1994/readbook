@@ -9,7 +9,7 @@ class BottomNavigationWidget extends StatefulWidget {
 }
 
 class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
-  final _BottomNavigationColor = Colors.blue;
+  final _BottomNavigationColor = Colors.black54;
   int _currentIndex = 0;
   List<Widget> list = List();
 
@@ -29,29 +29,29 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.book,
-                color: _BottomNavigationColor,
+                color: Colors.black54,
               ),
               title: Text(
                 '书架',
-                style: TextStyle(color: _BottomNavigationColor),
+                style: TextStyle(color: Colors.black54),
               )),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.home,
-                color: _BottomNavigationColor,
+                color: Colors.black54,
               ),
               title: Text(
                 '书城',
-                style: TextStyle(color: _BottomNavigationColor),
+                style: TextStyle(color: Colors.black54),
               )),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.perm_identity,
-                color: _BottomNavigationColor,
+                color: Colors.black54,
               ),
               title: Text(
                 '我的',
-                style: TextStyle(color: _BottomNavigationColor),
+                style: TextStyle(color: Colors.black54),
               )),
         ],
         type: BottomNavigationBarType.fixed,
