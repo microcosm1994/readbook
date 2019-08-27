@@ -11,7 +11,7 @@ class BookMall {
     }
   }
   // 获取排行榜列表
-  Future<Map> getRankingList(id, callback) async {
+  Future<Map> getRankingList(id) async {
     try {
       return await DioUtils().request<String>("/ranking/" + id);
     } catch (e) {

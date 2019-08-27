@@ -45,42 +45,15 @@ class DioUtils {
       options: _checkOptions(method, options),
       cancelToken: cancelToken,
     );
-    _printHttpLog(response);
     if (response.statusCode == 200) {
-      try {
-        if (response.data is Map) {
-          if (response.data["ok"] != null &&
-              !response.data["ok"] &&
-              response.data["msg"] != null &&
-              response.data["code"] != null) {
-            return new Future.error(new DioError(
-              response: response,
-              message: response.data["msg"],
-              type: DioErrorType.RESPONSE,
-            ));
-          }
-          // 由于小说接口返回的格式不固定不规范，所以直接返回，这里一般返回BaseResp.
-          return response.data;
-        } else {
-          if (response.data is List) {
-            Map<String, dynamic> _dataMap = Map();
-            _dataMap["data"] = response.data;
-            return _dataMap;
-          }
-        }
-      } catch (e) {
-        return new Future.error(new DioError(
-          response: response,
-          message: "data parsing exception...",
-          type: DioErrorType.RESPONSE,
-        ));
-      }
+      return response.data;
+    } else {
+      return new Future.error(new DioError(
+        response: response,
+        message: "statusCode: ${response.statusCode}, service error",
+        type: DioErrorType.RESPONSE,
+      ));
     }
-    return new Future.error(new DioError(
-      response: response,
-      message: "statusCode: ${response.statusCode}, service error",
-      type: DioErrorType.RESPONSE,
-    ));
   }
 
   /// check Options.
@@ -98,15 +71,15 @@ class DioUtils {
       return;
     }
     try {
-      print("----------------Http Log Start----------------" +
-          "\n[statusCode]:   " +
-          response.statusCode.toString() +
-          "\n[request   ]:   " +
-          _getOptionsStr(response.request));
+      // print("----------------Http Log Start----------------" +
+      // "\n[statusCode]:   " +
+      // response.statusCode.toString() +
+      // "\n[request   ]:   " +
+      // _getOptionsStr(response.request));
       _printDataStr("reqdata ", response.request.data);
       _printDataStr("queryParameters ", response.request.queryParameters);
       _printDataStr("response", response.data);
-      print("----------------Http Log Stop----------------");
+      // print("----------------Http Log Stop----------------");
     } catch (ex) {
       print("Http Log" + " error......");
     }
@@ -127,10 +100,10 @@ class DioUtils {
     String da = value.toString();
     while (da.isNotEmpty) {
       if (da.length > 512) {
-        print("[$tag  ]:   " + da.substring(0, 512));
+        // print("[$tag  ]:   " + da.substring(0, 512));
         da = da.substring(512, da.length);
       } else {
-        print("[$tag  ]:   " + da);
+        // print("[$tag  ]:   " + da);
         da = "";
       }
     }
