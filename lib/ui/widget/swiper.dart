@@ -2,17 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 class SwiperPage extends StatefulWidget {
+  // 获取父组件的值
+  SwiperPage({Key key, this.swiperList, this.callBack}) : super(key: key);
+  final callBack;
+  List swiperList;
   @override
-  void initState(data) {
-    print(data);
-  }
-  @override
-  SwiperPageState createState() {
-    return SwiperPageState();
+  _SwiperPageState createState() {
+    return _SwiperPageState();
   }
 }
 
-class SwiperPageState extends State<SwiperPage> {
+class _SwiperPageState extends State<SwiperPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    print(widget.swiperList);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
