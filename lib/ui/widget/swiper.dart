@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import '../../data/bookMall/bookMall.dart';
+import 'package:readbook/utils/coverImage.dart';
 
 class SwiperPage extends StatefulWidget {
   // 获取父组件的值
-  SwiperPage({Key key, this.swiperList, this.callBack}) : super(key: key);
-  final callBack;
-  List swiperList;
+  SwiperPage({Key key, this.books}) : super(key: key);
+  List books; // 图片数组
   @override
   _SwiperPageState createState() {
     return _SwiperPageState();
@@ -13,12 +14,32 @@ class SwiperPage extends StatefulWidget {
 }
 
 class _SwiperPageState extends State<SwiperPage> {
+  // 排行id
+  final String totalRank = '564d8494fe996c25652644d2';
+  List swiperList; // 图片数组
+  void getData() {
+    print(widget.books);
+    print(widget.books);
+    // 取排行榜前三作为轮播图
+      List arr = List();
+      for (int i = 0; i < widget.books.length; i++) {
+        if (i < 3) {
+          arr.add(CoverImage.convertImageUrl(widget.books[i]['cover']));
+        }
+      }
+      this.setState(() {
+        this.swiperList = arr;
+      });
+  }
+
   @override
   void initState() {
     // TODO: implement initState
-    print(widget.swiperList);
     super.initState();
+    this.getData();
+    print(this.swiperList);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,8 +63,9 @@ class _SwiperPageState extends State<SwiperPage> {
 
   Widget _swiperBuilder(BuildContext context, int index) {
     return (Image.network(
-      "http://via.placeholder.com/350x150",
-      fit: BoxFit.fill,
+      this.swiperList[index],
+      scale: 8.5,
+      fit: BoxFit.contain,
     ));
   }
 }

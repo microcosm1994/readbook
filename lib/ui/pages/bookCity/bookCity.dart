@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:readbook/ui/pages/bookCity/bookCity_ranking.dart'; // 排行榜组件
 
 class BookCity extends StatelessWidget {
+  // tabs
+  String tabsName = 'ranking'; 
   void initState() {}
   @override
   Widget build(BuildContext context) {
@@ -10,22 +12,14 @@ class BookCity extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(Icons.menu),
-            tooltip: 'Navigreation',
-            onPressed: () => debugPrint('Navigreation button is pressed'),
+            icon: Icon(Icons.search),
+            onPressed: () => debugPrint('点击搜索按钮'),
             color: Colors.black54,
           ),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.search),
-              tooltip: 'Search',
-              onPressed: () => debugPrint('Search button is pressed'),
-              color: Colors.black54,
-            ),
-            IconButton(
-              icon: Icon(Icons.more_horiz),
-              tooltip: 'More',
-              onPressed: () => debugPrint('More button is pressed'),
+              icon: Icon(Icons.widgets),
+              onPressed: () => debugPrint('点击分类按钮'),
               color: Colors.black54,
             )
           ],
@@ -63,10 +57,10 @@ class BookCity extends StatelessWidget {
         body: Center(
           child: TabBarView(
             children: <Widget>[
-              Ranking(),
-              Icon(Icons.change_history, size: 128.0, color: Colors.black12),
-              Icon(Icons.directions_bike, size: 128.0, color: Colors.black12),
-              Icon(Icons.directions_bike, size: 128.0, color: Colors.black12),
+              new Ranking(tabsName: 'ranking'),
+              new Ranking(tabsName: 'man'),
+              new Ranking(tabsName: 'woman'),
+              new Ranking(tabsName: 'publish'),
             ],
           ),
         ),

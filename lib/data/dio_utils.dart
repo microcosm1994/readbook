@@ -6,11 +6,11 @@ class DioUtils {
   static Dio _dio;
 
   /// 是否是debug模式.
-  static bool _isDebug = true;
+  static bool _isDebug = false;
 
   /// 打开debug模式.
   static void openDebug() {
-    _isDebug = true;
+    _isDebug = false;
   }
 
   DioUtils._init() {
@@ -46,14 +46,40 @@ class DioUtils {
       cancelToken: cancelToken,
     );
     if (response.statusCode == 200) {
-      return response.data;
-    } else {
-      return new Future.error(new DioError(
-        response: response,
-        message: "statusCode: ${response.statusCode}, service error",
-        type: DioErrorType.RESPONSE,
-      ));
+      try {
+        if (response.data is Map) {
+          if (response.data["ok"] != null &&
+              !response.data["ok"] &&
+              response.data["msg"] != null &&
+              response.data["code"] != null) {
+            return new Future.error(new DioError(
+              response: response,
+              message: response.data["msg"],
+              type: DioErrorType.RESPONSE,
+            ));
+          }
+          // 由于小说接口返回的格式不固定不规范，所以直接返回，这里一般返回BaseResp.
+          return response.data;
+        } else {
+          if (response.data is List) {
+            Map<String, dynamic> _dataMap = Map();
+            _dataMap["data"] = response.data;
+            return _dataMap;
+          }
+        }
+      } catch (e) {
+        return new Future.error(new DioError(
+          response: response,
+          message: "data parsing exception...",
+          type: DioErrorType.RESPONSE,
+        ));
+      }
     }
+    return new Future.error(new DioError(
+      response: response,
+      message: "statusCode: ${response.statusCode}, service error",
+      type: DioErrorType.RESPONSE,
+    ));
   }
 
   /// check Options.
