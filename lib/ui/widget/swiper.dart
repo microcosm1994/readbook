@@ -18,8 +18,6 @@ class _SwiperPageState extends State<SwiperPage> {
   final String totalRank = '564d8494fe996c25652644d2';
   List swiperList; // 图片数组
   void getData() {
-    print(widget.books);
-    print(widget.books);
     // 取排行榜前三作为轮播图
       List arr = List();
       for (int i = 0; i < widget.books.length; i++) {

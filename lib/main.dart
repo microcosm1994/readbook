@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'ui/widget/BottomNavigationWidget.dart';
+import 'ui/pages/search/search.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,12 +10,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter bottomNavigationBar',
-      theme: ThemeData.light(),//主题
-      home: BottomNavigationWidget(),
-//      routes: <String, WidgetBuilder>{
-//        '/bookShelf': (BuildContext context) => BookShelf(),
-//        '/bookCity': (BuildContext context) => BookCity(),
-//      },
+      theme: ThemeData.light(), //主题
+      routes: <String, WidgetBuilder>{
+        '/': (BuildContext context) => BottomNavigationWidget(),
+        '/search': (BuildContext context) => Search(),
+        //  '/bookCity': (BuildContext context) => BookCity(),
+      },
     );
   }
 }

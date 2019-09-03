@@ -13,7 +13,9 @@ class BookCity extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.search),
-            onPressed: () => debugPrint('点击搜索按钮'),
+            onPressed: () {
+              Navigator.pushNamed(context, '/search');
+            },
             color: Colors.black54,
           ),
           actions: <Widget>[
@@ -57,9 +59,13 @@ class BookCity extends StatelessWidget {
         body: Center(
           child: TabBarView(
             children: <Widget>[
+              // 排行榜
               new Ranking(tabsName: 'ranking'),
+              // 男生
               new Ranking(tabsName: 'man'),
+              // 女生
               new Ranking(tabsName: 'woman'),
+              // 出版
               new Ranking(tabsName: 'publish'),
             ],
           ),

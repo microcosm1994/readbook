@@ -51,4 +51,14 @@ class BookMall {
       return e;
     }
   }
+
+   // 搜索小说
+  Future<Map> getSearch(String value) async {
+    try {
+      Response response = await dio.get("/book/fuzzy-search?query=$value");
+      return response.data;
+    } catch (e) {
+      return e;
+    }
+  }
 }

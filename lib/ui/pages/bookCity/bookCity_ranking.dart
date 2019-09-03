@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widget/swiper.dart';
+import '../../widget/bookDes.dart';
 import '../../../data/bookMall/bookMall.dart';
 import 'package:readbook/utils/coverImage.dart';
 
@@ -42,19 +43,23 @@ class _Rankingstate extends State<Ranking> {
       'gender': 'male',
       'major': '玄幻',
     };
+    // 排行榜
     if (widget.tabsName == 'ranking') {
       this.getRankingData();
     }
+    // 男生
     if (widget.tabsName == 'man') {
       params['gender'] = 'male';
       params['major'] = '玄幻';
       this.getTypeData(params);
     }
+    // 女生
     if (widget.tabsName == 'woman') {
       params['gender'] = 'female';
       params['major'] = '古代言情';
       this.getTypeData(params);
     }
+    // 出版
     if (widget.tabsName == 'publish') {
       params['gender'] = 'press';
       params['major'] = '传记名著';
@@ -85,57 +90,11 @@ class _Rankingstate extends State<Ranking> {
         itemBuilder: (BuildContext context, int index) {
           return Container(
             padding: EdgeInsets.only(left: 10),
-            child: bookDes(books[index]),
+            child: new BookDes(book: books[index]),
             decoration: BoxDecoration(
                 border: Border(
                     bottom: BorderSide(width: 1, color: Color(0xffe5e5e5)))),
           );
         });
-  }
-
-  Widget bookDes(Map book) {
-    print(context);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Container(
-          width: 70.0,
-          child: Image.network(
-              CoverImage.convertImageUrl(
-                book['cover'],
-              ),
-              fit: BoxFit.contain),
-        ),
-        new Expanded(
-          child: Container(
-            padding: EdgeInsets.all(20.0),
-            child: new Column(
-              children: <Widget>[
-                Text(
-                  book['title'],
-                  softWrap: true,
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-                Text(
-                  book['shortIntro'],
-                  softWrap: true,
-                  textAlign: TextAlign.left,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 3,
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
   }
 }
