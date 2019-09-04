@@ -10,7 +10,7 @@ class BottomNavigationWidget extends StatefulWidget {
 
 class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   final _BottomNavigationColor = Colors.black54;
-  int _currentIndex = 0;
+  int _currentIndex = 1;
   List<Widget> list = List();
 
   @override

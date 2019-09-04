@@ -21,7 +21,9 @@ class BookCity extends StatelessWidget {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.widgets),
-              onPressed: () => debugPrint('点击分类按钮'),
+              onPressed: () {
+                Navigator.pushNamed(context, '/classify');
+              },
               color: Colors.black54,
             )
           ],

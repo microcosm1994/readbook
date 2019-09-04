@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'ui/widget/BottomNavigationWidget.dart';
 import 'ui/pages/search/search.dart';
+import 'ui/pages/classify/classify.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/': (BuildContext context) => BottomNavigationWidget(),
         '/search': (BuildContext context) => Search(),
-        //  '/bookCity': (BuildContext context) => BookCity(),
+        '/classify': (BuildContext context) => classify(),
       },
     );
   }
