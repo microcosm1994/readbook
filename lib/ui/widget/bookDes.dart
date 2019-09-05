@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:readbook/utils/coverImage.dart';
+import '../../data/bookMall/bookMall.dart';
+import '../pages/bookInfo/bookInfo.dart';
 
 class BookDes extends StatefulWidget {
   // 获取父组件的值
@@ -17,10 +19,18 @@ class _BookDes extends State<BookDes> {
     'author': '',
     'type': '',
   };
+
+  // 获取小说信息
+  void getBookInfo(id, callback) {
+    BookMall().getBookInfo(id).then((res) {
+      callback(res);
+    });
+  }
+
   @override
   void initState() {
-    print(widget.book);
     this.setState(() {
+      this.data['id'] = widget.book['id'];
       this.data['cover'] = widget.book['cover'];
       this.data['title'] = widget.book['title'];
       this.data['shortIntro'] = widget.book['shortIntro'];
@@ -34,74 +44,83 @@ class _BookDes extends State<BookDes> {
   }
 
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Container(
-          width: 70.0,
-          child: Image.network(
-              CoverImage.convertImageUrl(
-                data['cover'],
-              ),
-              fit: BoxFit.contain),
-        ),
-        new Expanded(
-          child: Container(
-            padding: EdgeInsets.all(20.0),
-            child: new Column(
-              children: <Widget>[
-                Container(
-                  width: double.infinity,
-                  child: Text(
-                  data['title'],
-                  softWrap: false,
-                  textAlign: TextAlign.left,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
+    return new GestureDetector(
+      onTap: () {
+        this.getBookInfo(widget.book['_id'], (res) {
+          Navigator.push(context, new MaterialPageRoute(builder: (_) {
+            return new bookInfo(book: res);
+          }));
+        });
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Container(
+            width: 70.0,
+            child: Image.network(
+                CoverImage.convertImageUrl(
+                  data['cover'],
                 ),
-                ),
-                Text(
-                  data['shortIntro'],
-                  softWrap: true,
-                  textAlign: TextAlign.left,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  style: TextStyle(fontSize: 14, color: Colors.black54),
-                ),
-                Row(
-                  children: <Widget>[
-                    Container(
-                      width: 100.0,
-                      child: Text(
-                        data['author'],
-                        style: TextStyle(color: Colors.green),
-                        textAlign: TextAlign.left,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
-                    ),
-                    new Expanded(
-                        child: Text(data['type'],
-                        textAlign: TextAlign.left,
-                            style: TextStyle(color: Colors.orangeAccent))),
-                    new Expanded(
-                        child: Text(
-                      '🔥${data["latelyFollower"]}',
-                      style: TextStyle(color: Colors.redAccent),
-                      textAlign: TextAlign.center,
+                fit: BoxFit.contain),
+          ),
+          new Expanded(
+            child: Container(
+              padding: EdgeInsets.all(20.0),
+              child: new Column(
+                children: <Widget>[
+                  Container(
+                    width: double.infinity,
+                    child: Text(
+                      data['title'],
+                      softWrap: false,
+                      textAlign: TextAlign.left,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
-                    )),
-                  ],
-                )
-              ],
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    data['shortIntro'],
+                    softWrap: true,
+                    textAlign: TextAlign.left,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    style: TextStyle(fontSize: 14, color: Colors.black54),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        width: 100.0,
+                        child: Text(
+                          data['author'],
+                          style: TextStyle(color: Colors.green),
+                          textAlign: TextAlign.left,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                      ),
+                      new Expanded(
+                          child: Text(data['type'],
+                              textAlign: TextAlign.left,
+                              style: TextStyle(color: Colors.orangeAccent))),
+                      new Expanded(
+                          child: Text(
+                        '🔥${data["latelyFollower"]}',
+                        style: TextStyle(color: Colors.redAccent),
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      )),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

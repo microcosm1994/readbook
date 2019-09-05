@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../search/search1.dart';
 import 'package:readbook/ui/pages/bookCity/bookCity_ranking.dart'; // 排行榜组件
 
 class BookCity extends StatelessWidget {
@@ -14,7 +15,10 @@ class BookCity extends StatelessWidget {
           leading: IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
+              // 自己实现的搜索页
               Navigator.pushNamed(context, '/search');
+              // flutter提供的搜索页
+              // showSearch(context: context, delegate: searchBarDelegate());
             },
             color: Colors.black54,
           ),

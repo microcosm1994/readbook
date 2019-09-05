@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:readbook/utils/coverImage.dart';
+import '../../widget/bookDes.dart';
 import '../../../data/bookMall/bookMall.dart';
 
 class classifyInfo extends StatefulWidget {
@@ -13,20 +13,36 @@ class classifyInfo extends StatefulWidget {
 
 class _classifyInfoState extends State<classifyInfo> {
   Map<dynamic, dynamic> data = {};
-  // 获取小说分类
-  void getType() {
+  String type = 'hot';
+  var hotStyle = Colors.green[500];
+  var nStyle = Colors.black87;
+  var overStyle = Colors.black87;
+  List books = [];
+  // 获取分类小说列表
+  void getTypeData() {
+    this.setState(() {
+      this.books = [];
+    });
+    Map<String, dynamic> params = {
+      'gender': widget.gender,
+      'major': widget.data['name'],
+      'type': this.type,
+      'minor': '',
+      'start': '0',
+      'limit': '20',
+    };
     // 请求数据
-    BookMall().getType().then((res) {
+    BookMall().getTypeData(params).then((res) {
+      print(res['books'].length);
       this.setState(() {
-        this.data = res;
+        this.books = res['books'];
       });
     });
   }
 
   @override
   void initState() {
-    // this.getType();
-    print(widget.data);
+    this.getTypeData();
     super.initState();
   }
 
@@ -68,44 +84,57 @@ class _classifyInfoState extends State<classifyInfo> {
                     new Expanded(
                       child: new GestureDetector(
                         onTap: () {
-                          debugPrint('hot');
+                          this.setState(() {
+                            this.type = 'hot';
+                            this.hotStyle = Colors.green[500];
+                            this.nStyle = Colors.black87;
+                            this.overStyle = Colors.black87;
+                          });
+                          this.getTypeData();
                         },
-                        child: Text('热门', textAlign: TextAlign.center),
+                        child: Text('热门', textAlign: TextAlign.center, style: TextStyle(
+                          color: this.hotStyle
+                        ),),
                       ),
                     ),
                     new Expanded(
                       child: new GestureDetector(
                         onTap: () {
-                          debugPrint('new');
+                          this.setState(() {
+                            this.type = 'new';
+                            this.hotStyle = Colors.black87;
+                            this.nStyle = Colors.green[500];
+                            this.overStyle = Colors.black87;
+                          });
+                          this.getTypeData();
                         },
-                        child: Text('新书', textAlign: TextAlign.center),
+                        child: Text('新书', textAlign: TextAlign.center, style: TextStyle(
+                          color: this.nStyle
+                        ),),
                       ),
                     ),
                     new Expanded(
                       child: new GestureDetector(
                         onTap: () {
-                          debugPrint('repulation');
+                          this.setState(() {
+                            this.type = 'over';
+                            this.hotStyle = Colors.black87;
+                            this.nStyle = Colors.black87;
+                            this.overStyle = Colors.green[500];
+                          });
+                          this.getTypeData();
                         },
-                        child: Text('好评', textAlign: TextAlign.center),
-                      ),
-                    ),
-                    new Expanded(
-                      child: new GestureDetector(
-                        onTap: () {
-                          debugPrint('over');
-                        },
-                        child: Text('完结', textAlign: TextAlign.center),
-                      ),
-                    ),
-                    new Expanded(
-                      child: new GestureDetector(
-                        onTap: () {
-                          debugPrint('month');
-                        },
-                        child: Text('包月', textAlign: TextAlign.center),
+                        child: Text('完结', textAlign: TextAlign.center, style: TextStyle(
+                          color: this.overStyle
+                        ),),
                       ),
                     ),
                   ],
+                ),
+              ),
+              Flexible(
+                child: ListView(
+                  children: <Widget>[buildList(this.books)],
                 ),
               )
             ],
@@ -113,5 +142,21 @@ class _classifyInfoState extends State<classifyInfo> {
         ),
       ),
     );
+  }
+
+  Widget buildList(List books) {
+    return ListView.builder(
+        shrinkWrap: true, //解决无限高度问题
+        physics: new NeverScrollableScrollPhysics(), //禁用滑动事件
+        itemCount: books.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            padding: EdgeInsets.only(left: 10),
+            child: new BookDes(book: books[index]),
+            decoration: BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(width: 1, color: Color(0xffe5e5e5)))),
+          );
+        });
   }
 }

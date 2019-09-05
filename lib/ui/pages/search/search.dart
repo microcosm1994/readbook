@@ -86,6 +86,25 @@ class _Search extends State<Search> {
     );
   }
 
+  // 搜索补充列表
+  Widget autoSearch() {
+    return Container(
+        child: ListView.builder(
+            shrinkWrap: true, //解决无限高度问题
+            physics: new NeverScrollableScrollPhysics(), //禁用滑动事件
+            itemCount: this.bookList.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                padding: EdgeInsets.only(left: 10),
+                child: BookDes(book: this.bookList[index]),
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom:
+                            BorderSide(width: 1, color: Color(0xffe5e5e5)))),
+              );
+            }));
+  }
+
   // 列表
   Widget searchList(BuildContext context) {
     return Container(

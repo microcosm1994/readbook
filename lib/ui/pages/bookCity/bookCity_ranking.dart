@@ -42,6 +42,10 @@ class _Rankingstate extends State<Ranking> {
     Map<String, dynamic> params = {
       'gender': 'male',
       'major': '玄幻',
+      'type': 'hot',
+      'minor': '',
+      'start': '0',
+      'limit': '20',
     };
     // 排行榜
     if (widget.tabsName == 'ranking') {
