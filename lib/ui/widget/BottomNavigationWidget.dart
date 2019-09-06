@@ -28,7 +28,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
         items: [
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.book,
+                Icons.library_books,
                 color: Colors.black54,
               ),
               title: Text(
