@@ -278,7 +278,6 @@ class _bookInfo extends State<bookInfo> {
           padding: EdgeInsets.only(left: 15.0),
           child: Row(
             children: <Widget>[Text('最新书评', style: TextStyle(fontSize: 16.0),),
-            Text.rich(t),
             new Expanded(child: Text('写书评', textAlign: TextAlign.right)),
             Text('写书评', textAlign: TextAlign.right),
             new Expanded(child: Text('data'))],
