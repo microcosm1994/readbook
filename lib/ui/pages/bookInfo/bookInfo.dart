@@ -19,57 +19,77 @@ class _bookInfo extends State<bookInfo> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.keyboard_backspace),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          color: Colors.white,
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.share),
+        appBar: AppBar(
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(Icons.keyboard_backspace),
             onPressed: () {
-              Navigator.pushNamed(context, '/classify');
+              Navigator.pop(context);
             },
             color: Colors.white,
-          )
-        ],
-        backgroundColor: Color(0xff605167),
-      ),
-      body: Container(
-        color: Colors.white,
-        child: ListView(
-        children: <Widget>[
-          Container(
-            height: 150.0,
-            color: Color(0xff605167),
-            child: buildHeader(context),
           ),
-          Container(
-            width: double.infinity,
-            color: Colors.white10,
-            child: buildOpera(),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.share),
+              onPressed: () {
+                Navigator.pushNamed(context, '/classify');
+              },
+              color: Colors.white,
+            )
+          ],
+          backgroundColor: Color(0xff605167),
+        ),
+        body: Container(
+          color: Color(0xffe2e2e2),
+          child: ListView(
+            children: <Widget>[
+              // 小说封面
+              Container(
+                height: 150.0,
+                color: Color(0xff605167),
+                child: buildHeader(context),
+              ),
+              // 操作栏
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.only(bottom: 5.0),
+                color: Colors.white,
+                child: buildOpera(),
+              ),
+              // 小说简介
+              Container(
+                width: double.infinity,
+                color: Colors.white,
+                margin: EdgeInsets.only(top: 5.0),
+                padding: EdgeInsets.all(15.0),
+                child: Text(
+                  widget.book['longIntro'],
+                  softWrap: true,
+                  textAlign: TextAlign.left,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 5,
+                  style: TextStyle(fontSize: 14, color: Colors.black54),
+                ),
+              ),
+              // 最新章节
+              Container(
+                width: double.infinity,
+                height: 40.0,
+                margin: EdgeInsets.only(top: 5.0),
+                color: Colors.white,
+                child: buildNew(context),
+              ),
+              // 最新书评
+              Container(
+                width: double.infinity,
+                height: 40.0,
+                margin: EdgeInsets.only(top: 5.0),
+                color: Colors.white,
+                child: buildComment(context),
+              ),
+            ],
           ),
-          Container(
-            width: double.infinity,
-            color: Colors.white10,
-            padding: EdgeInsets.all(15.0),
-            child: Text(
-              widget.book['longIntro'],
-              softWrap: true,
-              textAlign: TextAlign.left,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 5,
-              style: TextStyle(fontSize: 14, color: Colors.black54),
-            ),
-          ),
-        ],
-      ),
-      )
-    );
+        ));
   }
 
   // 小说封面、名称
@@ -217,6 +237,51 @@ class _bookInfo extends State<bookInfo> {
                 style: TextStyle(fontSize: 12.0),
               )
             ],
+          ),
+        )
+      ],
+    );
+  }
+
+  // 小说最新章节
+  Widget buildNew(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Container(
+          width: 100.0,
+          padding: EdgeInsets.only(left: 15.0),
+          child: Text('最新章节', style: TextStyle(fontSize: 16.0)),
+        ),
+        new Expanded(
+            child: Text(
+          '${widget.book['lastChapter']}',
+          style: TextStyle(
+            color: Colors.black54,
+          ),
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+        )),
+        Icon(
+          Icons.chevron_right,
+          color: Colors.black54,
+        ),
+      ],
+    );
+  }
+
+  // 评论
+  Widget buildComment(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Container(
+          height: 40.0,
+          padding: EdgeInsets.only(left: 15.0),
+          child: Row(
+            children: <Widget>[Text('最新书评', style: TextStyle(fontSize: 16.0),),
+            Text.rich(t),
+            new Expanded(child: Text('写书评', textAlign: TextAlign.right)),
+            Text('写书评', textAlign: TextAlign.right),
+            new Expanded(child: Text('data'))],
           ),
         )
       ],
