@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../widget/swiper.dart';
 import '../../widget/bookDes.dart';
 import '../../../data/bookMall/bookMall.dart';
-import 'package:readbook/utils/coverImage.dart';
 
 class Ranking extends StatefulWidget {
   // 获取父组件的值

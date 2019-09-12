@@ -81,4 +81,14 @@ class BookMall {
       return e;
     }
   }
+
+  // 获取小说目录
+  Future<Map> getBookCatalog(String id) async {
+    try {
+      Response response = await dio.get("/mix-atoc/$id?view=chapters");
+      return response.data;
+    } catch (e) {
+      return e;
+    }
+  }
 }
