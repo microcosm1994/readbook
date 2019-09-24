@@ -91,4 +91,14 @@ class BookMall {
       return e;
     }
   }
+
+  // 获取小说内容
+  Future<Map> getBookContent(String link) async {
+    try {
+      Response response = await dio.get("/chapter/$link?view=chapters");
+      return response.data;
+    } catch (e) {
+      return e;
+    }
+  }
 }

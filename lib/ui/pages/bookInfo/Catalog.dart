@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../data/bookMall/bookMall.dart';
+import 'package:readbook/ui/pages/bookCity/bookCity_ranking.dart'; // 排行榜组件
+import './bookContent.dart'; // 书籍内容
 
+// 目录组件
 class Catalog extends StatefulWidget {
   // 获取父组件的值
   Catalog({Key key, this.bookId}) : super(key: key);
@@ -78,33 +81,44 @@ class _Catalog extends State<Catalog> {
             decoration: BoxDecoration(
                 border: Border(bottom: BorderSide(color: Colors.grey[200]))),
             height: 40.0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Container(
-                  width: 220.0,
-                  padding: EdgeInsets.only(left: 15.0),
-                  child: Text.rich(
-                    TextSpan(
-                      text: '${index + 1}',
-                      style: TextStyle(color: Colors.black54, fontSize: 12.0),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: '${bookList[index]['title']}',
-                            style: TextStyle(color: Colors.black54, fontSize: 14.0)),
-                      ],
+            child: new GestureDetector(
+              onTap: () {
+                // 关闭抽屉
+                Navigator.pop(context);
+                // 打开新页面
+                Navigator.push(context, new MaterialPageRoute(builder: (_) {
+                  return new BookContent(bookLink: bookList[index]['link'], bookId: widget.bookId,);
+                }));
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    width: 220.0,
+                    padding: EdgeInsets.only(left: 15.0),
+                    child: Text.rich(
+                      TextSpan(
+                        text: '${index + 1}.',
+                        style: TextStyle(color: Colors.black54, fontSize: 12.0),
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: '${bookList[index]['title']}',
+                              style: TextStyle(
+                                  color: Colors.black54, fontSize: 14.0)),
+                        ],
+                      ),
+                      softWrap: false,
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
-                    softWrap: false,
-                    textAlign: TextAlign.left,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(right: 15.0),
-                  // child: Text('${bookList[index]['unreadble']}'),
-                )
-              ],
+                  Container(
+                    padding: EdgeInsets.only(right: 15.0),
+                    // child: Text('${bookList[index]['unreadble']}'),
+                  )
+                ],
+              ),
             ));
       },
     );

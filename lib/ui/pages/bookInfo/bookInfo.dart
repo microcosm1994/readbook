@@ -3,6 +3,7 @@ import 'package:readbook/utils/coverImage.dart';
 import '../../../utils/coverImage.dart';
 import './Catalog.dart';
 
+// 书籍详情
 class bookInfo extends StatefulWidget {
   // 获取父组件的值
   bookInfo({Key key, this.book}) : super(key: key);
@@ -18,7 +19,7 @@ class _bookInfo extends State<bookInfo> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new Scaffold(
         appBar: AppBar(
           elevation: 0,
           leading: IconButton(
@@ -39,56 +40,63 @@ class _bookInfo extends State<bookInfo> {
           ],
           backgroundColor: Color(0xff605167),
         ),
-        drawer: Catalog(bookId: widget.book['_id']),
-        body: Container(
-          color: Color(0xffe2e2e2),
-          child: ListView(
-            children: <Widget>[
-              // 小说封面
-              Container(
-                height: 150.0,
-                color: Color(0xff605167),
-                child: buildHeader(context),
+        drawer: new Drawer(
+          elevation: double.infinity,
+          child: Catalog(bookId: widget.book['_id']),
+        ),
+        body: Builder(
+          builder: (BuildContext context) {
+            return Container(
+              color: Color(0xffe2e2e2),
+              child: ListView(
+                children: <Widget>[
+                  // 小说封面
+                  Container(
+                    height: 150.0,
+                    color: Color(0xff605167),
+                    child: buildHeader(context),
+                  ),
+                  // 操作栏
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.only(bottom: 5.0),
+                    color: Colors.white,
+                    child: buildOpera(context),
+                  ),
+                  // 小说简介
+                  Container(
+                    width: double.infinity,
+                    color: Colors.white,
+                    margin: EdgeInsets.only(top: 5.0),
+                    padding: EdgeInsets.all(15.0),
+                    child: Text(
+                      widget.book['longIntro'],
+                      softWrap: true,
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 5,
+                      style: TextStyle(fontSize: 14, color: Colors.black54),
+                    ),
+                  ),
+                  // 最新章节
+                  Container(
+                    width: double.infinity,
+                    height: 40.0,
+                    margin: EdgeInsets.only(top: 5.0),
+                    color: Colors.white,
+                    child: buildNew(context),
+                  ),
+                  // 最新书评
+                  Container(
+                    width: double.infinity,
+                    margin: EdgeInsets.only(top: 5.0),
+                    color: Colors.white,
+                    child: buildComment(context),
+                  ),
+                ],
               ),
-              // 操作栏
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.only(bottom: 5.0),
-                color: Colors.white,
-                child: buildOpera(),
-              ),
-              // 小说简介
-              Container(
-                width: double.infinity,
-                color: Colors.white,
-                margin: EdgeInsets.only(top: 5.0),
-                padding: EdgeInsets.all(15.0),
-                child: Text(
-                  widget.book['longIntro'],
-                  softWrap: true,
-                  textAlign: TextAlign.left,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 5,
-                  style: TextStyle(fontSize: 14, color: Colors.black54),
-                ),
-              ),
-              // 最新章节
-              Container(
-                width: double.infinity,
-                height: 40.0,
-                margin: EdgeInsets.only(top: 5.0),
-                color: Colors.white,
-                child: buildNew(context),
-              ),
-              // 最新书评
-              Container(
-                width: double.infinity,
-                margin: EdgeInsets.only(top: 5.0),
-                color: Colors.white,
-                child: buildComment(context),
-              ),
-            ],
-          ),
+            );
+          },
         ));
   }
 
@@ -176,7 +184,7 @@ class _bookInfo extends State<bookInfo> {
   }
 
   // 按钮组
-  Widget buildOpera() {
+  Widget buildOpera(BuildContext context) {
     return Row(
       children: <Widget>[
         new Expanded(
@@ -201,7 +209,8 @@ class _bookInfo extends State<bookInfo> {
         new Expanded(
             child: new GestureDetector(
           onTap: () {
-            debugPrint('目录');
+            // 打开目录
+            Scaffold.of(context).openDrawer();
           },
           child: Column(
             children: <Widget>[
