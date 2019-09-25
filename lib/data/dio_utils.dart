@@ -15,7 +15,6 @@ class DioUtils {
 
   DioUtils._init() {
     BaseOptions options = new BaseOptions(
-      baseUrl: "http://api.zhuishushenqi.com",
       connectTimeout: 1000 * 10,
       receiveTimeout: 1000 * 20,
     );

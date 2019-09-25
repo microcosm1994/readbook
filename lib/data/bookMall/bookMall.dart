@@ -11,6 +11,14 @@ BaseOptions options = new BaseOptions(
 );
 Dio dio = Dio(options);
 
+BaseOptions options1 = new BaseOptions(
+  baseUrl: "http://chapterup.zhuishushenqi.com",
+  connectTimeout: 5000,
+  receiveTimeout: 3000,
+  contentType: ContentType.parse("application/x-www-form-urlencoded"),
+);
+Dio dio1 = Dio(options1);
+
 class BookMall {
   // 获取排行榜类型
   Future<Map> getRankingType() async {
@@ -95,7 +103,8 @@ class BookMall {
   // 获取小说内容
   Future<Map> getBookContent(String link) async {
     try {
-      Response response = await dio.get("/chapter/$link?view=chapters");
+      Response response = await dio1.get("/chapter/$link");
+      print(response);
       return response.data;
     } catch (e) {
       return e;

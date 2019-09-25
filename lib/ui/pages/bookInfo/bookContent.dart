@@ -13,20 +13,21 @@ class BookContent extends StatefulWidget {
 }
 
 class _BookContent extends State<BookContent> {
-  List bookList = [];
+  Map bookContent = {};
   // 获取排行榜数据
-  void getBookContent() {
+  void getBookContent(link) {
     // 请求数据
-    BookMall().getBookContent(widget.bookLink).then((res) {
+    BookMall().getBookContent(link).then((res) {
+      print(res);
       this.setState(() {
-        this.bookList = res['mixToc']['chapters'];
+        this.bookContent = res['chapter'];
       });
     });
   }
 
   @override
   void initState() {
-    this.getBookContent();
+    this.getBookContent(widget.bookLink);
     super.initState();
   }
 

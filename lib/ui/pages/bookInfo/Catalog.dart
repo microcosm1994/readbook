@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../data/bookMall/bookMall.dart';
-import 'package:readbook/ui/pages/bookCity/bookCity_ranking.dart'; // 排行榜组件
 import './bookContent.dart'; // 书籍内容
 
 // 目录组件
